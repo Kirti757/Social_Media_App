@@ -2,6 +2,14 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from users.forms import LoginForm
 from django.contrib.auth import authenticate,login
+from django.contrib.auth import logout
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth import logout
+
+
+
+
+#importing decorator
 #using above authenticate module the django orm save the data automatically
 
 # Create your views here.
@@ -26,3 +34,11 @@ def user_login(request):
         form=LoginForm()
 
     return render(request,'users/login.html',{'form':form})
+
+def logout_view(request):
+    logout(request)
+    return render(request, 'users/logout.html')
+
+@login_required
+def index(request):
+    return render(request,'users/index.html')
